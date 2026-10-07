@@ -37,6 +37,8 @@ class Checkers:
             start, end = (sr, sc), (er, ec)
             if capture_move(self.board, self.player, start, end):
                 move_piece(self.board, start, end)
+                mr, mc = (sr + er) // 2, (sc + ec) // 2
+                self.board[mr][mc] = "."
             elif simple_move(self.board, self.player, start, end):
                 move_piece(self.board, start, end)
             else:
