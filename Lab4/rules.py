@@ -25,6 +25,29 @@ def capture_move(board, player, start, end):
     )
 
 
+def has_pieces(board, player):
+    return any(
+        cell in (player, player + "K")
+        for row in board
+        for cell in row
+    )
+
+
+def has_legal_moves(board, player):
+    for sr in range(SIZE):
+        for sc in range(SIZE):
+            if board[sr][sc] not in (player, player + "K"):
+                continue
+            for er in range(SIZE):
+                for ec in range(SIZE):
+                    start, end = (sr, sc), (er, ec)
+                    if capture_move(board, player, start, end):
+                        return True
+                    if simple_move(board, player, start, end):
+                        return True
+    return False
+
+
 def promote(board):
     for c in range(SIZE):
         if board[0][c] == "R":

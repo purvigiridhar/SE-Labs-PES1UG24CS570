@@ -1,5 +1,5 @@
 from board import initial_board, move_piece, SIZE
-from rules import simple_move, capture_move, promote
+from rules import simple_move, capture_move, promote, has_pieces, has_legal_moves
 
 
 class Checkers:
@@ -12,10 +12,30 @@ class Checkers:
         for r, row in enumerate(self.board):
             print(f"{r}  " + " ".join(row))
 
+    def game_over(self):
+        opponent = "B" if self.player == "R" else "R"
+
+        if not has_pieces(self.board, self.player):
+            print(f"{opponent} wins! {self.player} has no pieces remaining.")
+            return True
+
+        if not has_pieces(self.board, opponent):
+            print(f"{self.player} wins! {opponent} has no pieces remaining.")
+            return True
+
+        if not has_legal_moves(self.board, self.player):
+            print(f"{opponent} wins! {self.player} has no legal moves.")
+            return True
+
+        return False
+
     def run(self):
         print("Checkers — move: sr sc er ec")
         while True:
             self.print_board()
+            if self.game_over():
+                return
+
             raw = input(f"{self.player}> ").strip().lower().split()
             if raw == ["q"]:
                 return
