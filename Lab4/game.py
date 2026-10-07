@@ -61,13 +61,27 @@ class Checkers:
                 move_piece(self.board, start, end)
                 mr, mc = (sr + er) // 2, (sc + ec) // 2
                 self.board[mr][mc] = "."
+                was_king = self.board[er][ec] in ("RK", "BK")
                 promote(self.board)
+                promoted = not was_king and self.board[er][ec] in ("RK", "BK")
+
+                message = f"{self.player} captures {start} -> {end}."
+                if promoted:
+                    message += f" Promoted to {self.board[er][ec]}."
+                print(message)
 
                 if has_capture_from(self.board, self.player, end):
                     continue
             elif not capture_required and simple_move(self.board, self.player, start, end):
                 move_piece(self.board, start, end)
+                was_king = self.board[er][ec] in ("RK", "BK")
                 promote(self.board)
+                promoted = not was_king and self.board[er][ec] in ("RK", "BK")
+
+                message = f"{self.player} moves {start} -> {end}."
+                if promoted:
+                    message += f" Promoted to {self.board[er][ec]}."
+                print(message)
             else:
                 print("Invalid move.")
                 continue
