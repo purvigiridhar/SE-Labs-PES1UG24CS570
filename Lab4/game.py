@@ -1,5 +1,5 @@
 from board import initial_board, move_piece, SIZE
-from rules import simple_move, capture_move, promote, has_pieces, has_legal_moves
+from rules import simple_move, capture_move, promote, has_pieces, has_legal_moves, has_capture, has_capture_from
 
 
 class Checkers:
@@ -55,15 +55,21 @@ class Checkers:
                 continue
 
             start, end = (sr, sc), (er, ec)
+            capture_required = has_capture(self.board, self.player)
+
             if capture_move(self.board, self.player, start, end):
                 move_piece(self.board, start, end)
                 mr, mc = (sr + er) // 2, (sc + ec) // 2
                 self.board[mr][mc] = "."
-            elif simple_move(self.board, self.player, start, end):
+                promote(self.board)
+
+                if has_capture_from(self.board, self.player, end):
+                    continue
+            elif not capture_required and simple_move(self.board, self.player, start, end):
                 move_piece(self.board, start, end)
+                promote(self.board)
             else:
                 print("Invalid move.")
                 continue
 
-            promote(self.board)
             self.player = "B" if self.player == "R" else "R"
