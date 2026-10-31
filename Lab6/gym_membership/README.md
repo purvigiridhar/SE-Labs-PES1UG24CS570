@@ -2,6 +2,10 @@
 
 Lab 6: Code and Branch Coverage
 
+## Repository Link
+
+https://github.com/SETAPESU26/L6_L7_21_gym_membership.git
+
 ## About
 
 A small Python module that works out gym membership costs with discounts and trainer add-ons, checks entry rules and reports BMI category.
