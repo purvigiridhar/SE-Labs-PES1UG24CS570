@@ -2,6 +2,8 @@
 
 Lab 7: Fuzz Testing
 
+Repository link: https://github.com/SETAPESU26/L6_L7_21_gym_membership.git
+
 ## Files
 
 | File | Description |
